@@ -13,7 +13,7 @@ import Client from './Client';
 
 function App() {
   return (
-    <div className="App flex items-center p-6 text-3xl">
+    <div className="App flex flex-row items-center w-screen h-screen">
       <HashRouter basename="/">
         <Routes>
           <Route path = '/' element={ <Login/> }/>
