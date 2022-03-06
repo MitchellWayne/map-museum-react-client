@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from './PrivateRoute';
 import './App.css';
+// import './index.css';
 
 import Login from './Login';
 import Client from './Client';
@@ -12,7 +13,7 @@ import Client from './Client';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App flex items-center p-6 text-3xl">
       <HashRouter basename="/">
         <Routes>
           <Route path = '/' element={ <Login/> }/>
