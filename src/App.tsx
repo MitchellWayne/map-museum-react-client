@@ -1,6 +1,9 @@
 import React from 'react';
+import { HashRouter, Routes } from "react-router-dom";
+
 import Map from './Map'
 import NoteForm from './NoteForm'
+
 import './App.css';
 
 // Note for later
@@ -10,8 +13,11 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <Map/>
-      <NoteForm/>
+      <HashRouter basename="/">
+        <Routes>
+          
+        </Routes>
+      </HashRouter>
     </div>
   );
 }
