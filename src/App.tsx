@@ -1,10 +1,10 @@
 import React from 'react';
-import { HashRouter, Routes } from "react-router-dom";
-
-import Map from './Map'
-import NoteForm from './NoteForm'
-
+import { HashRouter, Routes, Route } from "react-router-dom";
+import PrivateRoute from './PrivateRoute';
 import './App.css';
+
+import Login from './Login';
+import Client from './Client';
 
 // Note for later
 // import logo from './logo.svg';
@@ -15,7 +15,8 @@ function App() {
     <div className="App">
       <HashRouter basename="/">
         <Routes>
-          
+          <Route path = '/' element={ <Login/> }/>
+          <Route path = '/client' element={ <PrivateRoute><Client/></PrivateRoute> }/>
         </Routes>
       </HashRouter>
     </div>
