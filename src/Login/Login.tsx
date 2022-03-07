@@ -21,13 +21,13 @@ function Login() {
         credentials: "include",
       });
       const parsedResponse = await response.json();
-      console.log(parsedResponse);
 
       if (response.status === 200){
+        console.log(parsedResponse.message);
         document.cookie = `loggedIn=true; max-age=${60 * 60 * 12}`;
         nav('/client');
       } else {
-        setError(parsedResponse.message); // <- fix this nesting from the api lol
+        setError(parsedResponse.message);
       }
 
     } catch(err) {
