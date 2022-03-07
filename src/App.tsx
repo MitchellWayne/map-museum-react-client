@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter, Routes, Route } from "react-router-dom";
-import PrivateRoute from './PrivateRoute';
+import { PrivateRoute, ReversePrivateRoute } from './PrivateRoute';
 import './App.css';
 // import './index.css';
 
@@ -16,7 +16,7 @@ function App() {
     <div className="App flex flex-row items-center w-screen h-screen">
       <HashRouter basename="/">
         <Routes>
-          <Route path = '/' element={ <Login/> }/>
+          <Route path = '/' element={ <ReversePrivateRoute><Login/></ReversePrivateRoute> }/>
           <Route path = '/client' element={ <PrivateRoute><Client/></PrivateRoute> }/>
         </Routes>
       </HashRouter>

@@ -7,9 +7,12 @@ function authenticate(): boolean {
     return false;
 }
 
-function PrivateRoute({ children }:{ children: any }){
+export function PrivateRoute({ children }:{ children: any }){
   const auth = authenticate();
   return auth ? children : <Navigate to='/'/>;
 }
 
-export default PrivateRoute;
+export function ReversePrivateRoute({ children }:{ children: any }){
+  const auth = authenticate();
+  return auth ? <Navigate to='/client'/> : children;
+}
