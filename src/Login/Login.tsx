@@ -20,7 +20,7 @@ function Login() {
         <label htmlFor="password">Password</label>
         <input className="px-2 py-1 border" type="password" name="password" id="password" />
         <button 
-          className="self-center px-6 py-1 mt-5 font-bold text-green-600 border border-green-600 rounded-full w-min whitespace-nowrap hover:bg-gradient-to-tr from-green-600 to-green-400 hover:text-white"
+          className="self-center px-6 py-1 mt-5 font-bold text-green-600 border border-green-600 rounded-full active:scale-95 hover:border-white w-min whitespace-nowrap hover:bg-gradient-to-tr from-green-600 to-green-400 hover:text-white"
           type="submit"
         >
           Log In
