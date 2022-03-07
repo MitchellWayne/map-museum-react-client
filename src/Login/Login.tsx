@@ -6,6 +6,7 @@ function Login() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState([]);
 
   const loginUser = async () => {
     let urlParams = new URLSearchParams();
@@ -21,6 +22,13 @@ function Login() {
       });
       const parsedResponse = await response.json();
       console.log(parsedResponse);
+
+      if (response.status === 200){
+        document.cookie = `loggedIn=true; max-age=${60 * 60 * 12}`;
+        nav('/client');
+      } else {
+        setError(parsedResponse.message); // <- fix this nesting from the api lol
+      }
 
     } catch(err) {
       console.log('----- Login ERROR -----');
@@ -49,6 +57,12 @@ function Login() {
         >
           Log In
         </button>
+        {
+          error ?
+          <div className="mt-5 text-sm font-bold text-red-600">{error}</div>
+          :
+          null
+        }
       </form>
     </div>
   );
