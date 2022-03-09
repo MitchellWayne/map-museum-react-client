@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 
+require('dotenv').config()
+
 function Map() {
   let map = null;
 
   const loader = new Loader({
-    apiKey: "",
+    apiKey: process.env.MAPS_APIKEY as string,
     version: "weekly"
   });
 
