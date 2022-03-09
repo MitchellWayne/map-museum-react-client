@@ -6,7 +6,7 @@ function Login() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState([]);
+  const [error, setError] = useState('');
 
   const loginUser = async () => {
     let urlParams = new URLSearchParams();
@@ -27,7 +27,8 @@ function Login() {
         document.cookie = `loggedIn=true; max-age=${60 * 60 * 12}`;
         nav('/client');
       } else {
-        setError(parsedResponse.message);
+        // setError(parsedResponse.message);
+        setError('Invalid credentials');
       }
 
     } catch(err) {
@@ -59,7 +60,7 @@ function Login() {
         </button>
         {
           error ?
-          <div className="mt-5 text-sm font-bold text-red-600">{error}</div>
+          <div className="mt-5 text-sm font-bold text-center text-red-600">{error}</div>
           :
           null
         }
