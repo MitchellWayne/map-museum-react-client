@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Map from '../Map';
 import NoteForm from '../NoteForm';
-import { clientProps } from '../interfaces';
 
 
-function Client(props: clientProps) {
+function Client() {
+  console.log(' --- Rendered Client ---');
+
   const [noteActive, setNoteActive] = useState(false);
   const [latlng, setLatlng] = useState('');
 

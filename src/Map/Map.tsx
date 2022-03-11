@@ -1,16 +1,46 @@
+import React, { useState, useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-import { clientProps } from '../interfaces';
+import { clientPropSet } from '../interfaces';
 
-function Map(props: clientProps) {
-  let map = null;
+const Map = React.memo((props: clientPropSet) => {
+  console.log(' --- Rendered map ---');
 
-  const loadMap = (APIKey: string) => {
+  // States and variables -----------------------------------------------------
+  let map: google.maps.Map | null = null;
+  let key = '';
+
+  const { setNoteActive, setLatlng } = props;
+
+  // Methods ------------------------------------------------------------------
+  const fetchMap = async () => {
+    if (key === '') {
+      try {
+        let response = await fetch(`/admin/mapsAPI`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const parsedResponse = await response.json();
+
+        if (response.status === 200){
+          key = parsedResponse.apikey;
+        } else {
+          console.log("Failed to fetch API Key for map");
+        }
+
+      } catch(err) {
+        console.log('--- !!! APIKey Fetch ERROR !!! ---');
+        console.log(err);
+      }
+    }
+  };
+
+  const loadMap = async (APIKey: string) => {
     const loader = new Loader({
       apiKey: APIKey,
       version: "weekly"
     });
   
-    loader.load()
+    await loader.load()
     .then((google) => {
       map = new google.maps.Map(document.getElementById("Map") as HTMLElement, {
         center: { lat: 45.9795412, lng: -51.6052898 },
@@ -24,32 +54,33 @@ function Map(props: clientProps) {
     });
   }
 
-  const fetchMap = async () => {
-    try {
-      let response = await fetch(`/admin/mapsAPI`, {
-        method: "GET",
-        credentials: "include",
+  const attachMapListeners = () => {
+    if (map) {
+      console.log('--- Map listeners attached ---')
+      map.addListener('dblclick', (mouseEvent: google.maps.MapMouseEvent) => {
+        setLatlng(mouseEvent.latLng?.toString());
+        setNoteActive(true);
       });
-      const parsedResponse = await response.json();
-
-      if (response.status === 200){
-        loadMap(parsedResponse.apikey);
-      } else {
-        console.log("Failed to fetch API Key for map");
-      }
-
-    } catch(err) {
-      console.log('----- APIKey Fetch ERROR -----');
-      console.log(err);
+    } else {
+      console.log('--- !!! Failed to attach map listeners !!! ---')
     }
-  };
+  }
   
-  fetchMap();
+  // Lifecycles ---------------------------------------------------------------
+
+  useEffect(() => {
+    async function loadMapAsync(){
+      await fetchMap();
+      await loadMap(key);
+      attachMapListeners();
+    }
+    loadMapAsync();
+  });
 
   return (
     <div className="Map w-screen h-screen z-0" id='Map'>
     </div>
   );
-}
+})
 
 export default Map;
