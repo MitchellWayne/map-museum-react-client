@@ -44,7 +44,7 @@ function Map() {
   fetchMap();
 
   return (
-    <div className="Map w-screen h-screen" id='Map'>
+    <div className="Map w-screen h-screen z-0" id='Map'>
     </div>
   );
 }

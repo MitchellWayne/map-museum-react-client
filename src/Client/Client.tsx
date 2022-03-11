@@ -4,7 +4,7 @@ import NoteForm from '../NoteForm';
 
 function Client() {
   return (
-    <div className="Client">
+    <div className="Client z-0">
       <NoteForm/>
       <Map/>
     </div>
