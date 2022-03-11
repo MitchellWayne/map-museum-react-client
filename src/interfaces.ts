@@ -1,6 +1,9 @@
-export interface clientProps {
-  noteActive?: boolean;
-  setNoteActive?: Function;
-  latlng?: string;
-  setLatlng?: Function;
+export interface clientPropState {
+  noteActive: boolean;
+  latlng: string;
+}
+
+export interface clientPropSet {
+  setNoteActive: Function;
+  setLatlng: Function;
 }
