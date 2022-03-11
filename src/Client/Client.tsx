@@ -10,7 +10,7 @@ function Client() {
   const [latlng, setLatlng] = useState('');
 
   return (
-    <div className="Client z-0">
+    <div className="Client">
       <Map
         setNoteActive={setNoteActive}
         setLatlng={setLatlng}
