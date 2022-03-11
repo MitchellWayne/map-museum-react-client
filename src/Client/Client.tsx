@@ -4,8 +4,6 @@ import NoteForm from '../NoteForm';
 
 
 function Client() {
-  console.log(' --- Rendered Client ---');
-
   const [noteActive, setNoteActive] = useState(false);
   const [latlng, setLatlng] = useState('');
 

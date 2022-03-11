@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { clientPropSet } from '../interfaces';
 
 const Map = React.memo((props: clientPropSet) => {
-  console.log(' --- Rendered map ---');
-
   // States and variables -----------------------------------------------------
   let map: google.maps.Map | null = null;
   let key = '';
