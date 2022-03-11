@@ -4,6 +4,26 @@ import { clientProps } from '../interfaces';
 function Map(props: clientProps) {
   let map = null;
 
+  const loadMap = (APIKey: string) => {
+    const loader = new Loader({
+      apiKey: APIKey,
+      version: "weekly"
+    });
+  
+    loader.load()
+    .then((google) => {
+      map = new google.maps.Map(document.getElementById("Map") as HTMLElement, {
+        center: { lat: 45.9795412, lng: -51.6052898 },
+        zoom: 2,
+        fullscreenControl: false,
+        mapTypeControl: false,
+        streetViewControl: false,
+        zoomControl: false,
+        disableDoubleClickZoom: true,
+      });
+    });
+  }
+
   const fetchMap = async () => {
     try {
       let response = await fetch(`/admin/mapsAPI`, {
@@ -13,24 +33,7 @@ function Map(props: clientProps) {
       const parsedResponse = await response.json();
 
       if (response.status === 200){
-        let APIKey = parsedResponse.apikey;
-        const loader = new Loader({
-          apiKey: APIKey,
-          version: "weekly"
-        });
-      
-        loader.load()
-        .then((google) => {
-          map = new google.maps.Map(document.getElementById("Map") as HTMLElement, {
-            center: { lat: 45.9795412, lng: -51.6052898 },
-            zoom: 2,
-            fullscreenControl: false,
-            mapTypeControl: false,
-            streetViewControl: false,
-            zoomControl: false,
-            disableDoubleClickZoom: true,
-          });
-        });
+        loadMap(parsedResponse.apikey);
       } else {
         console.log("Failed to fetch API Key for map");
       }
