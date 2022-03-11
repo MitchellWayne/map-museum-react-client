@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
+import { clientProps } from '../interfaces';
 
-function Map() {
+function Map(props: clientProps) {
   let map = null;
 
   const fetchMap = async () => {
