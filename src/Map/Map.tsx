@@ -56,9 +56,16 @@ const Map = React.memo((props: any) => {
     if (map) {
       console.log('--- Map listeners attached ---')
       map.addListener('dblclick', (mouseEvent: google.maps.MapMouseEvent) => {
-        setLatlng(mouseEvent.latLng?.toString());
-        setNoteActive(true);
-        setSeriesActive(false);
+        if (mouseEvent.latLng) {
+          const latlng = mouseEvent.latLng?.toString().replace(/([()])+/g, '').split(',');
+          setLatlng(latlng);
+          
+          map?.setCenter({lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1])});
+          map?.setZoom(8);
+
+          setNoteActive(true);
+          setSeriesActive(false);
+        }
       });
     } else {
       console.log('--- !!! Failed to attach map listeners !!! ---')

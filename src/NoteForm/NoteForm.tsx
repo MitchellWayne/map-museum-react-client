@@ -1,15 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 // import { clientPropState } from '../interfaces';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function NoteForm(props: any) {
-  const [latlng, setLatlng] = useState(['']); // For parsing props.latlng
+  const [latlng] = useState(props.latlng); // For parsing props.latlng
   const [simpleForm, setSimpleForm] = useState(false);
-
-  useEffect(() => {
-    setLatlng(props.latlng.replace(/([()])+/g, '').split(','));
-  }, [props.latlng])
 
   return (
     <div className="bg-black/50 NoteForm w-72 absolute top-0 z-10 flex flex-col items-center h-screen text-white">
