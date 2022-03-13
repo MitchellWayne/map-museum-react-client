@@ -6,7 +6,7 @@ const Map = React.memo((props: any) => {
   // States and variables -----------------------------------------------------
   let map: google.maps.Map | null = null;
   let key = '';
-  let activeMarker = new google.maps.Marker();
+  let activeMarker: google.maps.Marker;
 
   const { setNoteActive, setSeriesActive, setLatlng } = props;
 
@@ -65,10 +65,10 @@ const Map = React.memo((props: any) => {
           setSeriesActive(false);
 
           // Active Marker Properties
-          activeMarker.setMap(null); // Reset so that theres only 1 at all times
+          if (activeMarker) activeMarker.setMap(null); // Reset so that theres only 1 at all times
           const googleLatLng = {lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1])};
           const img = {
-            url: 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png',
+            url: 'http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png',
             scaledSize: new google.maps.Size(25, 25),
           }
           activeMarker = new google.maps.Marker({
