@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-import { clientPropSet } from '../interfaces';
+// import { clientPropSet } from '../interfaces';
 
-const Map = React.memo((props: clientPropSet) => {
+const Map = React.memo((props: any) => {
   // States and variables -----------------------------------------------------
   let map: google.maps.Map | null = null;
   let key = '';
 
-  const { setNoteActive, setLatlng } = props;
+  const { setNoteActive, setSeriesActive, setLatlng } = props;
 
   // Methods ------------------------------------------------------------------
   const fetchMap = async () => {
@@ -58,6 +58,7 @@ const Map = React.memo((props: clientPropSet) => {
       map.addListener('dblclick', (mouseEvent: google.maps.MapMouseEvent) => {
         setLatlng(mouseEvent.latLng?.toString());
         setNoteActive(true);
+        setSeriesActive(false);
       });
     } else {
       console.log('--- !!! Failed to attach map listeners !!! ---')
