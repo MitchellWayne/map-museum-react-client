@@ -3,7 +3,11 @@ module.exports = {
     "./src/**/*.tsx"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'gideon-roman': ['Gideon Roman', 'cursive']
+      }
+    },
   },
   plugins: [],
 }
