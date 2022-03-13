@@ -17,8 +17,18 @@ function NoteForm(props: clientPropState) {
         <div className="text-left">Longitude: {latlng[1]}</div>
       </h2>
       <div className="flex flex-row formToggleWrapper justify-evenly mt-2 w-full font-gideon-roman text-xl">
-        <button className="grow text-black bg-white">Detailed</button>
-        <button className="grow text-black bg-white">Simple</button>
+        <button
+          className={`grow ${simpleForm ? 'text-white bg-black hover:bg-gray-700' : 'text-black bg-white'}`}
+          onClick={() => {setSimpleForm(false)}}
+        >
+          Detailed
+        </button>
+        <button
+          className={`grow ${simpleForm ? 'text-black bg-white' : 'text-white bg-black hover:bg-gray-700'} `}
+          onClick={() => {setSimpleForm(true)}}
+        >
+          Simple
+        </button>
       </div>
       <form action="">
 
