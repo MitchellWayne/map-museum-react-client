@@ -31,7 +31,7 @@ function Client() {
           />
           :
           <button
-            className="font-gideon-roman absolute top-0 left-0 mt-1 ml-2 bg-white px-3 py-0.5 rounded hover:bg-gray-700  hover:text-white active:scale-95"
+            className="font-gideon-roman absolute top-0 left-0 mt-2 ml-2 bg-white px-3 py-0.5 rounded hover:bg-gray-700  hover:text-white active:scale-95"
             onClick={() => {setSeriesActive(true)}}
           >
             Create Series
