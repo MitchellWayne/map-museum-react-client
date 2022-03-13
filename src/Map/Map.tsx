@@ -6,6 +6,7 @@ const Map = React.memo((props: any) => {
   // States and variables -----------------------------------------------------
   let map: google.maps.Map | null = null;
   let key = '';
+  let activeMarker = new google.maps.Marker();
 
   const { setNoteActive, setSeriesActive, setLatlng } = props;
 
@@ -57,14 +58,29 @@ const Map = React.memo((props: any) => {
       console.log('--- Map listeners attached ---')
       map.addListener('dblclick', (mouseEvent: google.maps.MapMouseEvent) => {
         if (mouseEvent.latLng) {
-          const latlng = mouseEvent.latLng?.toString().replace(/([()])+/g, '').split(',');
+          // Setting states for other UI components
+          let latlng = mouseEvent.latLng?.toString().replace(/([()])+/g, '').split(',');
           setLatlng(latlng);
-          
-          map?.setCenter({lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1])});
-          map?.setZoom(8);
-
           setNoteActive(true);
           setSeriesActive(false);
+
+          // Active Marker Properties
+          activeMarker.setMap(null); // Reset so that theres only 1 at all times
+          const googleLatLng = {lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1])};
+          const img = {
+            url: 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png',
+            scaledSize: new google.maps.Size(25, 25),
+          }
+          activeMarker = new google.maps.Marker({
+            position: googleLatLng,
+            map,
+            title: "New Note Location",
+            icon: img,
+          });
+
+          // Changing Map Properties
+          map?.setCenter(googleLatLng);
+          map?.setZoom(8);
         }
       });
     } else {
