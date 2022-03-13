@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Map from '../Map';
 import NoteForm from '../NoteForm';
+import SeriesForm from '../SeriesForm';
 
 
 function Client() {
-  // const [seriesActive, setSeriesActive] = useState(false);
+  const [seriesActive, setSeriesActive] = useState(false);
   const [noteActive, setNoteActive] = useState(false);
   const [latlng, setLatlng] = useState('');
 
@@ -21,10 +22,19 @@ function Client() {
           latlng={latlng}
         />
         :
-        <button className="font-gideon-roman absolute top-0 left-0 mt-1 ml-2 bg-white px-3 py-0.5 rounded hover:bg-gray-700  hover:text-white active:scale-95"
-        >
-          Create Series
-        </button>
+        <React.Fragment>
+        {
+          seriesActive ?
+          <SeriesForm/>
+          :
+          <button
+            className="font-gideon-roman absolute top-0 left-0 mt-1 ml-2 bg-white px-3 py-0.5 rounded hover:bg-gray-700  hover:text-white active:scale-95"
+            onClick={() => setSeriesActive(true)}
+          >
+            Create Series
+          </button>
+        }
+        </React.Fragment>
       }
     </div>
   );
