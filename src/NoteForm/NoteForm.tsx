@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { clientPropState } from '../interfaces';
+// import { clientPropState } from '../interfaces';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-function NoteForm(props: clientPropState) {
+function NoteForm(props: any) {
   const [latlng, setLatlng] = useState(['']); // For parsing props.latlng
   const [simpleForm, setSimpleForm] = useState(false);
 
@@ -13,7 +13,11 @@ function NoteForm(props: clientPropState) {
 
   return (
     <div className="absolute top-0 z-10 flex flex-col items-center h-screen text-white bg-black/50 NoteForm w-72">
-      <FontAwesomeIcon className="absolute top-0 right-0 mt-1 mr-2 text-2xl hover:text-gray-700" icon={faTimes}/>
+      <FontAwesomeIcon 
+        className="absolute top-0 right-0 mt-1 mr-2 text-2xl hover:text-gray-700"
+        icon={faTimes}
+        onClick={() => {props.setNoteActive(false)}}
+      />
       <h2 className="m-2 text-sm text-center">
         <span className='text-xl font-bold font-gideon-roman'>Create a new note at:</span>
         <div className="text-left">Latitude: {latlng[0]}</div>

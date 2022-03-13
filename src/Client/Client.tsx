@@ -16,7 +16,7 @@ function Client() {
       {
         noteActive ?
         <NoteForm
-          noteActive={noteActive}
+          setNoteActive={setNoteActive}
           latlng={latlng}
         />
         :
