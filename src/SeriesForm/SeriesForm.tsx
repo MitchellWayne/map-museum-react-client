@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function SeriesForm(props: any) {
+  const createSeries = async () => {
+    
+  }
   return (
     <div className="SeriesForm bg-black/50 w-72 absolute top-0 z-10 flex flex-col items-center h-screen text-white">
       <FontAwesomeIcon
@@ -16,7 +19,11 @@ function SeriesForm(props: any) {
       </h2>
       
       <form action="">
-
+        <label htmlFor="name">Series Name:</label>
+        <input type="text" name="name" id="name" />
+        <label htmlFor="desc">Description</label>
+        <textarea name="desc" id="desc" rows={5}></textarea>
+        {/* Add img and mainimg uploads + preview */}
       </form>
     </div>
   );
