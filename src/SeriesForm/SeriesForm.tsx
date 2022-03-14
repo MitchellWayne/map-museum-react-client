@@ -18,12 +18,17 @@ function SeriesForm(props: any) {
         <span className='font-gideon-roman text-xl font-bold'>Create a new series</span>
       </h2>
       
-      <form action="">
-        <label htmlFor="name">Series Name:</label>
+      <form 
+        className="flex flex-col w-full font-semibold font-sans"
+        action="">
+        <label className="ml-2" htmlFor="name">Series Name:</label>
         <input type="text" name="name" id="name" />
-        <label htmlFor="desc">Description</label>
-        <textarea name="desc" id="desc" rows={5}></textarea>
-        {/* Add img and mainimg uploads + preview */}
+        <label className="ml-2 mt-2" htmlFor="desc">Description</label>
+        <textarea name="desc" id="desc" rows={2}></textarea>
+        <label className="ml-2 mt-2" htmlFor="iconImage">Series Icon Image</label>
+        <input className="ml-2 mt-2" type="file" name="iconImage" id="iconImage" />
+        <label className="ml-2 mt-2" htmlFor="mainImage">Series Main Image</label>
+        <input className="ml-2 mt-2" type="file" name="mainImage" id="mainImage" />
       </form>
     </div>
   );
