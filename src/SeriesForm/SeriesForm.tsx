@@ -21,10 +21,10 @@ function SeriesForm(props: any) {
       <form 
         className="flex flex-col w-full font-semibold font-sans"
         action="">
-        <label className="ml-2" htmlFor="name">Series Name:</label>
-        <input type="text" name="name" id="name" />
+        <label className="ml-2" htmlFor="name">Series Name</label>
+        <input className="pl-2 text-black" type="text" name="name" id="name" />
         <label className="ml-2 mt-2" htmlFor="desc">Description</label>
-        <textarea name="desc" id="desc" rows={2}></textarea>
+        <textarea className="pl-2 text-black" name="desc" id="desc" rows={2} placeholder="Briefly describe the series"></textarea>
         <label className="ml-2 mt-2" htmlFor="iconImage">Series Icon Image</label>
         <input className="ml-2 mt-2" type="file" name="iconImage" id="iconImage" />
         <label className="ml-2 mt-2" htmlFor="mainImage">Series Main Image</label>
