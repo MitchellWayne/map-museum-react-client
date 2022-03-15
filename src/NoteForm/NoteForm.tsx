@@ -1,11 +1,44 @@
-import { useState } from 'react';
-// import { clientPropState } from '../interfaces';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
+interface seriesitem {
+  description: string;
+  image: string;
+  mainImage: string;
+  name: string;
+  notes: Array<string>;
+  _id: string;
+}
 
 function NoteForm(props: any) {
   const [latlng] = useState(props.latlng); // For parsing props.latlng
   const [simpleForm, setSimpleForm] = useState(false);
+  const [serieslist, setSerieslist] = useState([]);
+
+  useEffect(() => {
+    const getSeriesList = async () => {
+      try {
+        let response = await fetch(`/series`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const parsedResponse = await response.json();
+
+        if (response.status === 200){
+          console.log(parsedResponse);
+          setSerieslist(parsedResponse);
+        } else {
+          console.log(parsedResponse);
+        }
+
+      } catch(err) {
+        console.log('----- Serieslist Get ERROR -----');
+        console.log(err);
+      }
+    }
+    getSeriesList();
+  }, [])
 
   return (
     <div className="bg-black/50 NoteForm w-72 absolute top-0 z-10 flex flex-col items-center h-screen text-white">
@@ -33,8 +66,15 @@ function NoteForm(props: any) {
           Simple
         </button>
       </div>
-      <form action="">
-
+      <form action="" className="flex flex-col items-start justify-start w-full">
+        <label htmlFor="series">Assigned Series</label>
+        <select className="w-40" name="series" id="series">
+        {
+          serieslist.map((item: seriesitem) => {
+            return <option key={item._id} value={item._id}>{ item.name }</option>
+          })
+        }
+        </select>
       </form>
     </div>
   );
