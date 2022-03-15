@@ -68,9 +68,9 @@ function SeriesForm(props: any) {
       </form>
 
       <h3>Icon Preview</h3>
-      <img className="aspect-square h-14" src={fixedIcon} alt="" />
+      <img className="aspect-square h-14 object-cover" src={fixedIcon} alt="" />
       <h3>Main Image Preview</h3>
-      <img className="aspect-[8/5] w-full" src={fixedMainImg} alt="" />
+      <img className="aspect-[8/5] w-full object-cover" src={fixedMainImg} alt="" />
     </div>
   );
 }
