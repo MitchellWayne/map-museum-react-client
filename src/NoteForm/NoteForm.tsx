@@ -89,6 +89,36 @@ function NoteForm(props: any) {
           <label className="font-gideon-roman" htmlFor="name">Title</label>
           <input className="pl-2.5 w-56 text-black" type="text" name="name" id="name"/>
         </span>
+
+        {
+          !simpleForm ?
+          <span className="px-2.5 pb-2.5 flex justify-between w-full">
+            <label className="font-gideon-roman" htmlFor="location">Location</label>
+            <input className="pl-2.5 w-48 text-black" type="text" name="location" id="location"/>
+          </span>
+          :
+          null
+        }
+
+        {
+          !simpleForm ?
+          <span className="px-2.5 pb-2.5 flex flex-col w-full">
+            <label className="font-gideon-roman" htmlFor="locationdet">Location Details</label>
+            <textarea className="pl-2.5 text-black w-full" name="locationdet" id="locationdet"/>
+          </span>
+          :
+          null
+        }
+
+        {
+          !simpleForm ?
+          <span className="px-2.5 pb-2.5 flex flex-col w-full">
+            <label className="font-gideon-roman" htmlFor="synopsis">Note Synopsis</label>
+            <textarea className="pl-2.5 text-black w-full" name="synopsis" id="synopsis"/>
+          </span>
+          :
+          null
+        }
       </form>
     </div>
   );
