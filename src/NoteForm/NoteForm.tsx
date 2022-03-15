@@ -67,6 +67,7 @@ function NoteForm(props: any) {
         </button>
       </div>
       <form action="" className="flex flex-col items-start justify-start w-full">
+
         <span className="mt-2.5 px-2.5 pb-2.5 flex justify-between w-full">
           <label className="font-gideon-roman" htmlFor="series">Assigned Series</label>
           <select className="w-36 font-gideon-roman text-black" name="series" id="series">
@@ -85,7 +86,8 @@ function NoteForm(props: any) {
           }
           </select>
         </span>
-        <span className="px-2.5 flex justify-between w-full">
+
+        <span className="px-2.5 pb-2.5 flex justify-between w-full">
           <label className="font-gideon-roman" htmlFor="name">Title</label>
           <input className="pl-2.5 w-56 text-black" type="text" name="name" id="name"/>
         </span>
@@ -119,6 +121,23 @@ function NoteForm(props: any) {
           :
           null
         }
+
+        <span className="px-2.5 pb-2.5 flex flex-col w-full">
+          <label htmlFor="irlimg">IRL Image</label>
+          <input type="file" name="irlimg" id="irlimg" />
+        </span>
+
+        <span className="px-2.5 pb-2.5 flex flex-col w-full">
+          <label htmlFor="seriesimg">In-series Image</label>
+          <input type="file" name="seriesimg" id="seriesimg" />
+        </span>
+
+        <button 
+          className="self-center my-5 px-5 text-xl font-bold text-white border border-white rounded-full active:scale-95 hover:border-white w-min whitespace-nowrap hover:bg-gradient-to-tr from-green-600 to-green-400 hover:text-white"
+          type="submit"
+        >
+          Create Note
+        </button>
       </form>
     </div>
   );
