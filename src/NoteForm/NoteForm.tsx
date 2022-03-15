@@ -67,7 +67,7 @@ function NoteForm(props: any) {
         </button>
       </div>
       <form action="" className="flex flex-col items-start justify-start w-full">
-        <span className="mt-2.5 p-2.5 flex justify-between w-full">
+        <span className="mt-2.5 px-2.5 pb-2.5 flex justify-between w-full">
           <label className="font-gideon-roman" htmlFor="series">Assigned Series</label>
           <select className="w-36 font-gideon-roman text-black" name="series" id="series">
           {
@@ -84,6 +84,10 @@ function NoteForm(props: any) {
             })
           }
           </select>
+        </span>
+        <span className="px-2.5 flex justify-between w-full">
+          <label className="font-gideon-roman" htmlFor="name">Title</label>
+          <input className="pl-2.5 w-56 text-black" type="text" name="name" id="name"/>
         </span>
       </form>
     </div>
