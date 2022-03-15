@@ -67,14 +67,24 @@ function NoteForm(props: any) {
         </button>
       </div>
       <form action="" className="flex flex-col items-start justify-start w-full">
-        <label htmlFor="series">Assigned Series</label>
-        <select className="w-40" name="series" id="series">
-        {
-          serieslist.map((item: seriesitem) => {
-            return <option key={item._id} value={item._id}>{ item.name }</option>
-          })
-        }
-        </select>
+        <span className="mt-2.5 p-2.5 flex justify-between w-full">
+          <label className="font-gideon-roman" htmlFor="series">Assigned Series</label>
+          <select className="w-36 font-gideon-roman text-black" name="series" id="series">
+          {
+            serieslist.map((item: seriesitem) => {
+              return (
+                <option
+                  key={item._id}
+                  value={item._id}
+                  className="text-black"
+                >
+                { item.name }
+                </option>
+              )
+            })
+          }
+          </select>
+        </span>
       </form>
     </div>
   );
