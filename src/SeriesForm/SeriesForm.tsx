@@ -20,7 +20,7 @@ function SeriesForm(props: any) {
 
   const readImage = useCallback((isIcon: boolean, img: Blob) => {
     let fr = new FileReader();
-    if (isIcon) fr.readAsDataURL(img);
+    fr.readAsDataURL(img);
     fr.onload = (e) => {
       if (e.target && e.target.result) {
         if (isIcon) setFixedIcon(e.target.result as string);
@@ -60,7 +60,7 @@ function SeriesForm(props: any) {
         <label className="mt-2 ml-2" htmlFor="mainImage">Series Main Image</label>
         <input className="mt-2 ml-2" type="file" accept='image/png, image/jpeg' name="mainImage" id="mainImage" onChange={e => {if (e.target.files && e.target.files.length > 0) setMainImg(e.target.files[0])}} />
         <button 
-          className="self-center mt-5 px-5 text-xl font-bold text-white border border-white rounded-full active:scale-95 hover:border-white w-min whitespace-nowrap hover:bg-gradient-to-tr from-green-600 to-green-400 hover:text-white"
+          className="self-center my-5 px-5 text-xl font-bold text-white border border-white rounded-full active:scale-95 hover:border-white w-min whitespace-nowrap hover:bg-gradient-to-tr from-green-600 to-green-400 hover:text-white"
           type="submit"
         >
           Create Series
@@ -68,8 +68,9 @@ function SeriesForm(props: any) {
       </form>
 
       <h3>Icon Preview</h3>
-      <img className="aspect-square w-5" src={fixedIcon} alt="" />
-      {/* <img src={uMain} alt="" /> */}
+      <img className="aspect-square h-14" src={fixedIcon} alt="" />
+      <h3>Main Image Preview</h3>
+      <img className="aspect-[8/5] w-full" src={fixedMainImg} alt="" />
     </div>
   );
 }
