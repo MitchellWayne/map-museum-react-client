@@ -11,6 +11,31 @@ function SeriesForm(props: any) {
   const [fixedMainImg, setFixedMainImg] = useState<string>();
 
   const createSeries = async () => {
+    let formData = new FormData();
+    formData.append('name', name);
+    formData.append('description', desc);
+    if (icon) formData.append('imgfile', icon);
+    if (mainImg) formData.append('imgfile', mainImg);
+
+    try {
+      let response = await fetch(`/series`, {
+        method: "POST",
+        body: formData,
+        // headers: { 'Content-Type': 'multipart/form-data' },
+        credentials: "include",
+      });
+      const parsedResponse = await response.json();
+
+      if (response.status === 201){
+        console.log(parsedResponse);
+      } else {
+        console.log(parsedResponse);
+      }
+
+    } catch(err) {
+      console.log('----- Series Post ERROR -----');
+      console.log(err);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
