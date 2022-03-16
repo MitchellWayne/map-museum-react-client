@@ -13,8 +13,10 @@ interface seriesitem {
 
 function SeriesList(props: any){
   const [serieslist, setSerieslist] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleSeriesDel = async (id: string, name: string) => {
+    setLoading(true);
     try {
       let response = await fetch(`/series/${id}`, {
         method: "DELETE",
@@ -28,6 +30,7 @@ function SeriesList(props: any){
         props.setSeriesListActive(false);
       } else {
         window.alert('The series must have all its associated notes deleted first');
+        setLoading(false);
         console.log(parsedResponse);
       }
 
@@ -70,34 +73,41 @@ function SeriesList(props: any){
       <h2 className="m-2 text-sm text-center">
         <span className='font-gideon-roman text-xl font-bold'>Series List</span>
       </h2>
-      <ul className="flex flex-col w-full">
       {
-        serieslist.map((series: seriesitem) => {
-          return (
-            <li key={series._id} value={series._id}
-              className="bg-black/50 w-full p-1 my-0.5 h-14 flex flex-row justify-between"
-            >
-              <span className="flex w-11/12">
-                <img
-                  src={series.image ? `/series/${series._id}/image/${series.image}` : ''}
-                  alt=""
-                  className="aspect-square bg-black/50 h-full object-cover"
-                />
-                <span className="w-9/12 ml-2">
-                  <h2 className="h-1/2 truncate">{series.name}</h2>
-                  <h4 className="h-1/2">{series.notes.length} notes</h4>
+        !loading ?
+        <ul className="flex flex-col w-full">
+        {
+          serieslist.map((series: seriesitem) => {
+            return (
+              <li key={series._id} value={series._id}
+                className="bg-black/50 w-full p-1 my-0.5 h-14 flex flex-row justify-between"
+              >
+                <span className="flex w-11/12">
+                  <img
+                    src={series.image ? `/series/${series._id}/image/${series.image}` : ''}
+                    alt=""
+                    className="aspect-square bg-black/50 h-full object-cover"
+                  />
+                  <span className="w-9/12 ml-2">
+                    <h2 className="h-1/2 truncate">{series.name}</h2>
+                    <h4 className="h-1/2">{series.notes.length} notes</h4>
+                  </span>
                 </span>
-              </span>
-              <FontAwesomeIcon
-                className="hover:text-red-600 active:scale-90 text-2xl mr-1 justify-self-end"
-                icon={faTimes}
-                onClick={() => {handleSeriesDel(series._id, series.name)}}
-              />
-            </li>
-          )
-        })
+                <FontAwesomeIcon
+                  className="hover:text-red-600 active:scale-90 text-2xl mr-1 justify-self-end"
+                  icon={faTimes}
+                  onClick={() => {handleSeriesDel(series._id, series.name)}}
+                />
+              </li>
+            )
+          })
+        }
+        </ul>
+        :
+        <h4 className="m-2 text-sm text-center">
+          <span className='font-gideon-roman text-xl font-bold'>Deleting series...</span>
+        </h4>
       }
-      </ul>
     </div>
   );
 }
