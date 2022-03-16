@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -106,10 +106,24 @@ function SeriesForm(props: any) {
         }
       </form>
 
-      <h3>Icon Preview</h3>
-      <img className="aspect-square h-14 object-cover" src={fixedIcon} alt="" />
-      <h3>Main Image Preview</h3>
-      <img className="aspect-[8/5] w-full object-cover" src={fixedMainImg} alt="" />
+      {
+        fixedIcon ?
+        <React.Fragment>
+          <h3>Icon Preview</h3>
+          <img className="aspect-square h-14 object-cover" src={fixedIcon} alt="" />
+        </React.Fragment>
+        :
+        null
+      }
+      {
+        fixedMainImg ?
+        <React.Fragment>
+          <h3>Main Image Preview</h3>
+          <img className="aspect-[8/5] w-full object-cover" src={fixedMainImg} alt="" />
+        </React.Fragment>
+        :
+        null
+      }
     </div>
   );
 }
