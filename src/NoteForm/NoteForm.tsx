@@ -42,6 +42,16 @@ function NoteForm(props: any) {
     }
   }, []);
 
+  const createNote = async () => {
+
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    createNote();
+  }
+
+  // Lifecycle ----------------------------------------------------------------
   useEffect(() => {
     const getSeriesList = async () => {
       try {
@@ -52,7 +62,6 @@ function NoteForm(props: any) {
         const parsedResponse = await response.json();
 
         if (response.status === 200){
-          console.log(parsedResponse);
           setSerieslist(parsedResponse);
         } else {
           console.log(parsedResponse);
@@ -100,7 +109,7 @@ function NoteForm(props: any) {
           Simple
         </button>
       </div>
-      <form action="" className="flex flex-col items-start justify-start w-full">
+      <form onSubmit={handleSubmit} className="flex flex-col items-start justify-start w-full">
 
         <span className="mt-2.5 px-2.5 pb-2.5 flex justify-between w-full">
           <label className="font-gideon-roman" htmlFor="series">Assigned Series</label>
