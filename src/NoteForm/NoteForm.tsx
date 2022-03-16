@@ -65,7 +65,7 @@ function NoteForm(props: any) {
   }, [seriesImg, readImage]);
 
   return (
-    <div className="bg-black/50 NoteForm w-72 absolute top-0 z-10 flex flex-col items-center h-screen text-white">
+    <div className="bg-black/50 NoteForm w-72 absolute top-0 z-10 flex flex-col items-center h-screen text-white overflow-auto">
       <FontAwesomeIcon
         className="hover:text-gray-700 absolute top-0 right-0 mt-1 mr-2 text-2xl"
         icon={faTimes}

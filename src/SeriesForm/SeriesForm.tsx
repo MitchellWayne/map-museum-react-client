@@ -63,7 +63,7 @@ function SeriesForm(props: any) {
   }, [mainImg, readImage]);
 
   return (
-    <div className="SeriesForm bg-black/50 w-72 absolute top-0 z-10 flex flex-col items-center h-screen text-white">
+    <div className="SeriesForm bg-black/50 w-72 absolute top-0 z-10 flex flex-col items-center h-screen text-white overflow-auto">
       <FontAwesomeIcon
         className="hover:text-gray-700 absolute top-0 right-0 mt-1 mr-2 text-2xl"
         icon={faTimes}
