@@ -42,8 +42,41 @@ function NoteForm(props: any) {
     }
   }, []);
 
-  const createNote = async () => {
+  const createNote = async () => {    
+    let formData = new FormData();
 
+    if (series && title && img && seriesImg) {
+      formData.append('series', series);
+      formData.append('title', title);
+      formData.append('imgfile', img);
+      formData.append('imgfile', seriesImg);
+      formData.append('latlng', latlng[0] + ',' + latlng[1]);
+    }
+
+    if (location && locdetails && synopsis) {
+      formData.append('location', location);
+      formData.append('locdetails', locdetails);
+      formData.append('synopsis', synopsis);
+    }
+
+    try {
+      let response = await fetch(`/note`, {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+      const parsedResponse = await response.json();
+
+      if (response.status === 201){
+        console.log(parsedResponse);
+      } else {
+        console.log(parsedResponse);
+      }
+
+    } catch(err) {
+      console.log('----- Note Post ERROR -----');
+      console.log(err);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -149,6 +182,7 @@ function NoteForm(props: any) {
             <label className="font-gideon-roman" htmlFor="location">Location</label>
             <input className="pl-2.5 w-48 text-black" type="text" name="location" id="location"
               onChange={e => setLocation(e.target.value)}
+              required={!simpleForm}
             />
           </span>
           :
@@ -161,6 +195,7 @@ function NoteForm(props: any) {
             <label className="font-gideon-roman" htmlFor="locationdet">Location Details</label>
             <textarea className="pl-2.5 text-black w-full" name="locationdet" id="locationdet"
               onChange={e => setLocdetails(e.target.value)}
+              required={!simpleForm}
             />
           </span>
           :
@@ -173,6 +208,7 @@ function NoteForm(props: any) {
             <label className="font-gideon-roman" htmlFor="synopsis">Note Synopsis</label>
             <textarea className="pl-2.5 text-black w-full" name="synopsis" id="synopsis"
               onChange={e => setSynopsis(e.target.value)}
+              required={!simpleForm}
             />
           </span>
           :
