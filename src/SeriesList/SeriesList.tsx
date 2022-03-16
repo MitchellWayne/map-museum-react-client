@@ -54,8 +54,10 @@ function SeriesList(props: any){
             <li key={series._id} value={series._id}
               className="bg-black/50 w-full p-1 my-0.5 h-14 flex"
             >
-              <img src="" alt=""
-                className="aspect-square bg-black/50 h-full"
+              <img
+                src={series.image ? `/series/${series._id}/image/${series.image}` : ''}
+                alt=""
+                className="aspect-square bg-black/50 h-full object-cover"
               />
               <span className="w-full ml-1">
                 <h2 className="h-1/2 w-9/12 truncate">{series.name}</h2>
