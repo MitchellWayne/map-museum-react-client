@@ -10,7 +10,12 @@ function SeriesForm(props: any) {
   const [mainImg, setMainImg] = useState<Blob>();
   const [fixedMainImg, setFixedMainImg] = useState<string>();
 
+  // Other UI States
+  const [loading, setLoading] = useState(false);
+  const [loadingMsg, setLoadingMsg] = useState('Loading...');
+
   const createSeries = async () => {
+    setLoading(true);
     let formData = new FormData();
     formData.append('name', name);
     formData.append('description', desc);
@@ -21,20 +26,22 @@ function SeriesForm(props: any) {
       let response = await fetch(`/series`, {
         method: "POST",
         body: formData,
-        // headers: { 'Content-Type': 'multipart/form-data' },
         credentials: "include",
       });
       const parsedResponse = await response.json();
 
       if (response.status === 201){
         console.log(parsedResponse);
+        setLoadingMsg('Successfully uploaded series');
       } else {
         console.log(parsedResponse);
+        setLoadingMsg('Upload failed, seek admin assistance');
       }
 
     } catch(err) {
       console.log('----- Series Post ERROR -----');
       console.log(err);
+      setLoadingMsg('Upload failed, seek admin assistance');
     }
   };
 
@@ -84,12 +91,19 @@ function SeriesForm(props: any) {
         <input className="mt-2 ml-2" type="file" accept='image/png, image/jpeg' name="iconImage" id="iconImage" onChange={e => {if (e.target.files && e.target.files.length > 0) {setIcon(e.target.files[0])}}} />
         <label className="mt-2 ml-2" htmlFor="mainImage">Series Main Image</label>
         <input className="mt-2 ml-2" type="file" accept='image/png, image/jpeg' name="mainImage" id="mainImage" onChange={e => {if (e.target.files && e.target.files.length > 0) setMainImg(e.target.files[0])}} />
-        <button 
-          className="self-center my-5 px-5 text-xl font-bold text-white border border-white rounded-full active:scale-95 hover:border-white w-min whitespace-nowrap hover:bg-gradient-to-tr from-green-600 to-green-400 hover:text-white"
-          type="submit"
-        >
-          Create Series
-        </button>
+        {
+          !loading ?
+          <button 
+            className="self-center my-5 px-5 text-xl font-bold text-white border border-white rounded-full active:scale-95 hover:border-white w-min whitespace-nowrap hover:bg-gradient-to-tr from-green-600 to-green-400 hover:text-white"
+            type="submit"
+          >
+            Create Series
+          </button>
+          :
+          <h2 className="font-gideon-roman text-xl font-bold text-center items-center w-full text-green-500">
+            {loadingMsg}
+          </h2>
+        }
       </form>
 
       <h3>Icon Preview</h3>
