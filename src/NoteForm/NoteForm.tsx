@@ -31,6 +31,10 @@ function NoteForm(props: any) {
   const [fixedImg, setFixedImg] = useState<string>();
   const [fixedSeriesImg, setFixedSeriesImg] = useState<string>();
 
+  // Other UI States
+  const [loading, setLoading] = useState(false);
+  const [loadingMsg, setLoadingMsg] = useState('Loading...');
+
   const readImage = useCallback((isIRL: boolean, img: Blob) => {
     let fr = new FileReader();
     fr.readAsDataURL(img);
@@ -43,6 +47,7 @@ function NoteForm(props: any) {
   }, []);
 
   const createNote = async () => {    
+    setLoading(true);
     let formData = new FormData();
 
     if (series && title && img && seriesImg) {
@@ -69,13 +74,16 @@ function NoteForm(props: any) {
 
       if (response.status === 201){
         console.log(parsedResponse);
+        setLoadingMsg('Successfully uploaded note');
       } else {
         console.log(parsedResponse);
+        setLoadingMsg('Upload failed, seek admin assistance');
       }
 
     } catch(err) {
       console.log('----- Note Post ERROR -----');
       console.log(err);
+      setLoadingMsg('Upload failed, seek admin assistance');
     }
   };
 
@@ -231,12 +239,19 @@ function NoteForm(props: any) {
           />
         </span>
 
-        <button 
-          className="self-center my-5 px-5 text-xl font-bold text-white border border-white rounded-full active:scale-95 hover:border-white w-min whitespace-nowrap hover:bg-gradient-to-tr from-green-600 to-green-400 hover:text-white"
-          type="submit"
-        >
-          Create Note
-        </button>
+        {
+          !loading ?
+          <button
+            className="self-center my-5 px-5 text-xl font-bold text-white border border-white rounded-full active:scale-95 hover:border-white w-min whitespace-nowrap hover:bg-gradient-to-tr from-green-600 to-green-400 hover:text-white"
+            type="submit"
+          >
+            Create Note
+          </button>
+          :
+          <h2 className="font-gideon-roman text-xl font-bold text-center items-center w-full text-green-500">
+            {loadingMsg}
+          </h2>
+        }
       </form>
 
       <h3>IRL Image Preview</h3>
