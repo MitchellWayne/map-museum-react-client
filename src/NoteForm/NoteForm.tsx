@@ -104,33 +104,43 @@ function NoteForm(props: any) {
 
         <span className="mt-2.5 px-2.5 pb-2.5 flex justify-between w-full">
           <label className="font-gideon-roman" htmlFor="series">Assigned Series</label>
-          <select className="w-36 font-gideon-roman text-black" name="series" id="series">
-          {
-            serieslist.map((item: seriesitem) => {
-              return (
-                <option
-                  key={item._id}
-                  value={item._id}
-                  className="text-black"
-                >
-                { item.name }
-                </option>
-              )
-            })
-          }
+          <select className="w-36 font-gideon-roman text-black" name="series" id="series"
+            onChange={e => setSeries(e.target.value)}
+            defaultValue={''}
+            required
+          >
+            <option value='' disabled>Select a series</option>
+            {
+              serieslist.map((item: seriesitem) => {
+                return (
+                  <option
+                    key={item._id}
+                    value={item._id}
+                    className="text-black"
+                  >
+                  { item.name }
+                  </option>
+                )
+              })
+            }
           </select>
         </span>
 
         <span className="px-2.5 pb-2.5 flex justify-between w-full">
           <label className="font-gideon-roman" htmlFor="name">Title</label>
-          <input className="pl-2.5 w-56 text-black" type="text" name="name" id="name"/>
+          <input className="pl-2.5 w-56 text-black" type="text" name="name" id="name"
+            onChange={e => setTitle(e.target.value)}
+            required
+          />
         </span>
 
         {
           !simpleForm ?
           <span className="px-2.5 pb-2.5 flex justify-between w-full">
             <label className="font-gideon-roman" htmlFor="location">Location</label>
-            <input className="pl-2.5 w-48 text-black" type="text" name="location" id="location"/>
+            <input className="pl-2.5 w-48 text-black" type="text" name="location" id="location"
+              onChange={e => setLocation(e.target.value)}
+            />
           </span>
           :
           null
@@ -140,7 +150,9 @@ function NoteForm(props: any) {
           !simpleForm ?
           <span className="px-2.5 pb-2.5 flex flex-col w-full">
             <label className="font-gideon-roman" htmlFor="locationdet">Location Details</label>
-            <textarea className="pl-2.5 text-black w-full" name="locationdet" id="locationdet"/>
+            <textarea className="pl-2.5 text-black w-full" name="locationdet" id="locationdet"
+              onChange={e => setLocdetails(e.target.value)}
+            />
           </span>
           :
           null
@@ -150,7 +162,9 @@ function NoteForm(props: any) {
           !simpleForm ?
           <span className="px-2.5 pb-2.5 flex flex-col w-full">
             <label className="font-gideon-roman" htmlFor="synopsis">Note Synopsis</label>
-            <textarea className="pl-2.5 text-black w-full" name="synopsis" id="synopsis"/>
+            <textarea className="pl-2.5 text-black w-full" name="synopsis" id="synopsis"
+              onChange={e => setSynopsis(e.target.value)}
+            />
           </span>
           :
           null
@@ -160,6 +174,7 @@ function NoteForm(props: any) {
           <label htmlFor="irlimg">IRL Image</label>
           <input type="file" name="irlimg" id="irlimg"
             onChange={e => {if (e.target.files && e.target.files.length > 0) {setImg(e.target.files[0])}}}
+            required
           />
         </span>
 
@@ -167,6 +182,7 @@ function NoteForm(props: any) {
           <label htmlFor="seriesimg">In-series Image</label>
           <input type="file" name="seriesimg" id="seriesimg"
             onChange={e => {if (e.target.files && e.target.files.length > 0) {setSeriesImg(e.target.files[0])}}}
+            required
           />
         </span>
 
