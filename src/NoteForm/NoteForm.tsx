@@ -16,6 +16,16 @@ function NoteForm(props: any) {
   const [simpleForm, setSimpleForm] = useState(false);
   const [serieslist, setSerieslist] = useState([]);
 
+  // Required fields
+  const [series, setSeries] = useState<string>();
+  const [title, setTitle] = useState<string>();
+
+  // Three below are optional fields
+  const [location, setLocation] = useState<string>();
+  const [locdetails, setLocdetails] = useState<string>();
+  const [synopsis, setSynopsis] = useState<string>();
+
+  // Required image fields
   const [img, setImg] = useState<Blob>();
   const [seriesImg, setSeriesImg] = useState<Blob>();
   const [fixedImg, setFixedImg] = useState<string>();
