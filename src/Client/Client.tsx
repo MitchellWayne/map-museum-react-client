@@ -53,6 +53,7 @@ function Client() {
               {
                 seriesListActive?
                 <SeriesList
+                  setSeriesListActive={setSeriesListActive}
                 />
                 :
                 <button
