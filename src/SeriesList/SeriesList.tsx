@@ -14,6 +14,29 @@ interface seriesitem {
 function SeriesList(props: any){
   const [serieslist, setSerieslist] = useState([]);
 
+  const handleSeriesDel = async (id: string, name: string) => {
+    try {
+      let response = await fetch(`/series/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      const parsedResponse = await response.json();
+
+      if (response.status === 200){
+        console.log(parsedResponse);
+        window.alert('Successfully deleted series: ' + name);
+        props.setSeriesListActive(false);
+      } else {
+        window.alert('The series must have all its associated notes deleted first');
+        console.log(parsedResponse);
+      }
+
+    } catch(err) {
+      console.log('----- Series Delete ERROR -----');
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     const getSeriesList = async () => {
       try {
@@ -68,7 +91,7 @@ function SeriesList(props: any){
               <FontAwesomeIcon
                 className="hover:text-red-600 active:scale-90 text-2xl mr-1 justify-self-end"
                 icon={faTimes}
-                onClick={() => {console.log('Deleting: ' + series._id)}}
+                onClick={() => {handleSeriesDel(series._id, series.name)}}
               />
             </li>
           )
