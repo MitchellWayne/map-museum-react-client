@@ -52,17 +52,24 @@ function SeriesList(props: any){
         serieslist.map((series: seriesitem) => {
           return (
             <li key={series._id} value={series._id}
-              className="bg-black/50 w-full p-1 my-0.5 h-14 flex"
+              className="bg-black/50 w-full p-1 my-0.5 h-14 flex flex-row justify-between"
             >
-              <img
-                src={series.image ? `/series/${series._id}/image/${series.image}` : ''}
-                alt=""
-                className="aspect-square bg-black/50 h-full object-cover"
-              />
-              <span className="w-full ml-1">
-                <h2 className="h-1/2 w-9/12 truncate">{series.name}</h2>
-                <h4 className="h-1/2">{series.notes.length} notes</h4>
+              <span className="flex w-11/12">
+                <img
+                  src={series.image ? `/series/${series._id}/image/${series.image}` : ''}
+                  alt=""
+                  className="aspect-square bg-black/50 h-full object-cover"
+                />
+                <span className="w-9/12 ml-2">
+                  <h2 className="h-1/2 truncate">{series.name}</h2>
+                  <h4 className="h-1/2">{series.notes.length} notes</h4>
+                </span>
               </span>
+              <FontAwesomeIcon
+                className="hover:text-red-600 active:scale-90 text-2xl mr-1 justify-self-end"
+                icon={faTimes}
+                onClick={() => {console.log('Deleting: ' + series._id)}}
+              />
             </li>
           )
         })
