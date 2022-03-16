@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -254,10 +254,24 @@ function NoteForm(props: any) {
         }
       </form>
 
-      <h3>IRL Image Preview</h3>
-      <img className="aspect-[8/5] w-full object-cover" src={fixedImg} alt="" />
-      <h3>In-series Image Preview</h3>
-      <img className="aspect-[8/5] w-full object-cover" src={fixedSeriesImg} alt="" />
+      {
+        fixedImg ?
+        <React.Fragment>
+          <h3>IRL Image Preview</h3>
+          <img className="aspect-[8/5] w-full object-cover" src={fixedImg} alt="" />
+        </React.Fragment>
+        :
+        null
+      }
+      {
+        fixedSeriesImg ?
+        <React.Fragment>
+          <h3>In-series Image Preview</h3>
+          <img className="aspect-[8/5] w-full object-cover" src={fixedSeriesImg} alt="" />
+        </React.Fragment>
+        :
+        null
+      }
     </div>
   );
 }
