@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,6 +15,22 @@ function NoteForm(props: any) {
   const [latlng] = useState(props.latlng); // For parsing props.latlng
   const [simpleForm, setSimpleForm] = useState(false);
   const [serieslist, setSerieslist] = useState([]);
+
+  const [img, setImg] = useState<Blob>();
+  const [seriesImg, setSeriesImg] = useState<Blob>();
+  const [fixedImg, setFixedImg] = useState<string>();
+  const [fixedSeriesImg, setFixedSeriesImg] = useState<string>();
+
+  const readImage = useCallback((isIRL: boolean, img: Blob) => {
+    let fr = new FileReader();
+    fr.readAsDataURL(img);
+    fr.onload = (e) => {
+      if (e.target && e.target.result) {
+        if (isIRL) setFixedImg(e.target.result as string);
+        else if (!isIRL) setFixedSeriesImg(e.target.result as string);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const getSeriesList = async () => {
@@ -39,6 +55,14 @@ function NoteForm(props: any) {
     }
     getSeriesList();
   }, [])
+  
+  useEffect(() => {
+    if (img) readImage(true, img);
+  }, [img, readImage]);
+
+  useEffect(() => {
+    if (seriesImg) readImage(false, seriesImg);
+  }, [seriesImg, readImage]);
 
   return (
     <div className="bg-black/50 NoteForm w-72 absolute top-0 z-10 flex flex-col items-center h-screen text-white">
@@ -124,12 +148,16 @@ function NoteForm(props: any) {
 
         <span className="px-2.5 pb-2.5 flex flex-col w-full">
           <label htmlFor="irlimg">IRL Image</label>
-          <input type="file" name="irlimg" id="irlimg" />
+          <input type="file" name="irlimg" id="irlimg"
+            onChange={e => {if (e.target.files && e.target.files.length > 0) {setImg(e.target.files[0])}}}
+          />
         </span>
 
         <span className="px-2.5 pb-2.5 flex flex-col w-full">
           <label htmlFor="seriesimg">In-series Image</label>
-          <input type="file" name="seriesimg" id="seriesimg" />
+          <input type="file" name="seriesimg" id="seriesimg"
+            onChange={e => {if (e.target.files && e.target.files.length > 0) {setSeriesImg(e.target.files[0])}}}
+          />
         </span>
 
         <button 
@@ -139,6 +167,11 @@ function NoteForm(props: any) {
           Create Note
         </button>
       </form>
+
+      <h3>IRL Image Preview</h3>
+      <img className="aspect-[8/5] w-full object-cover" src={fixedImg} alt="" />
+      <h3>In-series Image Preview</h3>
+      <img className="aspect-[8/5] w-full object-cover" src={fixedSeriesImg} alt="" />
     </div>
   );
 }
