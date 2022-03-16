@@ -50,7 +50,7 @@ function NoteForm(props: any) {
       formData.append('title', title);
       formData.append('imgfile', img);
       formData.append('imgfile', seriesImg);
-      formData.append('latlng', latlng[0] + ',' + latlng[1]);
+      formData.append('latlong', latlng[0] + ',' + latlng[1]);
     }
 
     if (location && locdetails && synopsis) {
