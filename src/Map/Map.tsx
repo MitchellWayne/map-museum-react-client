@@ -104,6 +104,8 @@ const Map = React.memo((props: any) => {
         marker.addListener('click', () => {
           setUpdateNote(note);
           setNoteActive(true);
+          map?.setCenter({lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1])});
+          map?.setZoom(8);
         });
 
         markers.push(marker);
