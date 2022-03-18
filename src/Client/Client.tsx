@@ -12,6 +12,8 @@ function Client() {
   const [updateNote, setUpdateNote] = useState(false);
   const [latlng, setLatlng] = useState('');
 
+  const [reload, setReload] = useState(false);
+
   return (
     <div className="Client">
       <Map
@@ -19,6 +21,7 @@ function Client() {
         setSeriesActive={setSeriesActive}
         setLatlng={setLatlng}
         setUpdateNote={setUpdateNote}
+        reload={reload}
       />
       {
         noteActive ?
@@ -27,6 +30,7 @@ function Client() {
           setUpdateNote={setUpdateNote}
           updateNote={updateNote}
           latlng={latlng}
+          setReload={setReload}
         />
         :
         <React.Fragment>

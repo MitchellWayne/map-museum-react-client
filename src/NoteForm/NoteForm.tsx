@@ -72,6 +72,8 @@ function NoteForm(props: any) {
           props.setUpdateNote(null);
           props.setNoteActive(false);
           window.alert('Successfully deleted note');
+          props.setReload(true);
+          props.setReload(false);
         } else {
           console.log(parsedResponse);
           setLoadingMsg('Delete failed, seek admin assistance');
@@ -133,9 +135,11 @@ function NoteForm(props: any) {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createNote();
+    await createNote();
+    props.setReload(true);
+    props.setReload(false);
   }
 
   // Lifecycle ----------------------------------------------------------------
