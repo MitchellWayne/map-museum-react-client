@@ -2,11 +2,24 @@ import React, { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 // import { clientPropSet } from '../interfaces';
 
+interface Note {
+  _id: string;
+  series: string;
+  title: string;
+  location: string;
+  synopsis: string;
+  locdetails: string;
+  latlong: string;
+  image: string;
+  seriesimage: string;
+}
+
 const Map = React.memo((props: any) => {
   // States and variables -----------------------------------------------------
   let map: google.maps.Map | null = null;
   let key = '';
   let activeMarker: google.maps.Marker;
+  let notelist: Note[];
   let markers: google.maps.Marker[] = [];
 
   const { setNoteActive, setSeriesActive, setLatlng } = props;
@@ -21,8 +34,8 @@ const Map = React.memo((props: any) => {
       const parsedResponse = await response.json();
 
       if (response.status === 200){
-        markers = parsedResponse;
-        console.log(markers);
+        notelist = parsedResponse;
+        console.log(notelist);
       } else {
         console.log("--- Failed to fetch detailed note list ---");
       }
@@ -72,6 +85,24 @@ const Map = React.memo((props: any) => {
         zoomControl: false,
         disableDoubleClickZoom: true,
       });
+
+      notelist.forEach((note: any) => {
+        const img = {
+          url: 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png',
+          scaledSize: new google.maps.Size(25, 25),
+        }
+  
+        const latlng = note.latlong.split(',')
+        const marker = new google.maps.Marker({
+          position: {lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1])},
+          map: map,
+          title: note.title,
+          icon: img,
+          animation: google.maps.Animation.DROP,
+        });
+
+        markers.push(marker);
+      });
     });
   }
 
@@ -114,12 +145,12 @@ const Map = React.memo((props: any) => {
 
   useEffect(() => {
     async function loadMapAsync(){
+      await fetchNotes();
       await fetchMap();
       await loadMap(key);
       attachMapListeners();
     }
     loadMapAsync();
-    fetchNotes();
   });
 
   return (
