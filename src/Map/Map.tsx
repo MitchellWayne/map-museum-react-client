@@ -22,7 +22,7 @@ const Map = React.memo((props: any) => {
   let notelist: Note[];
   let markers: google.maps.Marker[] = [];
 
-  const { setNoteActive, setSeriesActive, setLatlng } = props;
+  const { setNoteActive, setSeriesActive, setLatlng, setUpdateNote } = props;
 
   // Methods ------------------------------------------------------------------
   const fetchNotes = async () => {
@@ -99,6 +99,10 @@ const Map = React.memo((props: any) => {
           title: note.title,
           icon: img,
           animation: google.maps.Animation.DROP,
+        });
+
+        marker.addListener('click', () => {
+          setUpdateNote(note);
         });
 
         markers.push(marker);
