@@ -9,6 +9,7 @@ function Client() {
   const [seriesActive, setSeriesActive] = useState(false);
   const [seriesListActive, setSeriesListActive] = useState(false);
   const [noteActive, setNoteActive] = useState(false);
+  const [updateNote, setUpdateNote] = useState(false);
   const [latlng, setLatlng] = useState('');
 
   return (
@@ -17,11 +18,14 @@ function Client() {
         setNoteActive={setNoteActive}
         setSeriesActive={setSeriesActive}
         setLatlng={setLatlng}
+        setUpdateNote={setUpdateNote}
       />
       {
         noteActive ?
         <NoteForm
           setNoteActive={setNoteActive}
+          setUpdateNote={setUpdateNote}
+          updateNote={updateNote}
           latlng={latlng}
         />
         :
