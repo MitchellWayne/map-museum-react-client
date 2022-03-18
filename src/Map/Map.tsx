@@ -116,6 +116,7 @@ const Map = React.memo((props: any) => {
       console.log('--- Map listeners attached ---')
       map.addListener('dblclick', (mouseEvent: google.maps.MapMouseEvent) => {
         if (mouseEvent.latLng) {
+          setUpdateNote(null);
           // Setting states for other UI components
           let latlng = mouseEvent.latLng?.toString().replace(/([()])+/g, '').split(',');
           setLatlng(latlng);
