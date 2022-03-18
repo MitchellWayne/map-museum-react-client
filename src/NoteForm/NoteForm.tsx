@@ -56,6 +56,35 @@ function NoteForm(props: any) {
     }
   }, []);
 
+  const deleteNote = async () => {
+    setLoading(true);
+    if (props.updateNote) {
+      try {
+        let response = await fetch(`/note/${props.updateNote._id}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
+        const parsedResponse = await response.json();
+
+        if (response.status === 201){
+          console.log(parsedResponse);
+          setLoadingMsg('Successfully deleted note');
+          props.setUpdateNote(null);
+          props.setNoteActive(false);
+          window.alert('Successfully deleted note');
+        } else {
+          console.log(parsedResponse);
+          setLoadingMsg('Delete failed, seek admin assistance');
+        }
+
+      } catch(err) {
+        console.log('----- Note delete ERROR -----');
+        console.log(err);
+        setLoadingMsg('Delete note failed, seek admin assistance');
+      }
+    }
+  }
+
   const createNote = async () => {    
     setLoading(true);
     let formData = new FormData();
@@ -300,6 +329,18 @@ function NoteForm(props: any) {
           <h2 className="font-gideon-roman text-xl font-bold text-center items-center w-full text-green-500">
             {loadingMsg}
           </h2>
+        }
+
+        {
+          !loading && props.updateNote ?
+          <button
+            className="self-center mb-5 px-5 text-xl font-bold text-white border border-white rounded-full active:scale-95 hover:border-white w-min whitespace-nowrap hover:bg-gradient-to-tr from-red-800 to-red-600 hover:text-white"
+            onClick={deleteNote}
+          >
+          Delete Note
+          </button>
+          :
+          null
         }
       </form>
 
