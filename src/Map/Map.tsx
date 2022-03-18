@@ -35,7 +35,7 @@ const Map = React.memo((props: any) => {
 
       if (response.status === 200){
         notelist = parsedResponse;
-        console.log(notelist);
+        // console.log(notelist);
       } else {
         console.log("--- Failed to fetch detailed note list ---");
       }
@@ -116,7 +116,7 @@ const Map = React.memo((props: any) => {
 
   const attachMapListeners = () => {
     if (map) {
-      console.log('--- Map listeners attached ---')
+      // console.log('--- Map listeners attached ---')
       map.addListener('dblclick', (mouseEvent: google.maps.MapMouseEvent) => {
         if (mouseEvent.latLng) {
           setUpdateNote(null);

@@ -142,7 +142,7 @@ function NoteForm(props: any) {
   useEffect(() => {
     if (props.updateNote) {
       const note = props.updateNote;
-      console.log(note);
+      // console.log(note);
       setLatlng(note.latlong.split(','));
       setSeries(note.series);
       setTitle(note.title);
