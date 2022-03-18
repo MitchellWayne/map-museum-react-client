@@ -33,6 +33,8 @@ function SeriesForm(props: any) {
       if (response.status === 201){
         console.log(parsedResponse);
         setLoadingMsg('Successfully uploaded series');
+        window.alert('Successfully uploaded series');
+        props.setSeriesActive(false);
       } else {
         console.log(parsedResponse);
         setLoadingMsg('Upload failed, seek admin assistance');

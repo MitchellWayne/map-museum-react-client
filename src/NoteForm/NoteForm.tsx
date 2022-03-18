@@ -90,6 +90,8 @@ function NoteForm(props: any) {
         console.log(parsedResponse);
         setLoadingMsg('Successfully uploaded/updated note');
         props.setUpdateNote(null);
+        props.setNoteActive(false);
+        window.alert('Successfully uploaded/updated note');
       } else {
         console.log(parsedResponse);
         setLoadingMsg('Upload/update failed, seek admin assistance');
