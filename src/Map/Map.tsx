@@ -103,6 +103,7 @@ const Map = React.memo((props: any) => {
 
         marker.addListener('click', () => {
           setUpdateNote(note);
+          setNoteActive(true);
         });
 
         markers.push(marker);
