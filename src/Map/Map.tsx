@@ -7,10 +7,32 @@ const Map = React.memo((props: any) => {
   let map: google.maps.Map | null = null;
   let key = '';
   let activeMarker: google.maps.Marker;
+  let markers: google.maps.Marker[] = [];
 
   const { setNoteActive, setSeriesActive, setLatlng } = props;
 
   // Methods ------------------------------------------------------------------
+  const fetchNotes = async () => {
+    try {
+      let response = await fetch(`/note/detailed`, {
+        method: "GET",
+        credentials: "include",
+      });
+      const parsedResponse = await response.json();
+
+      if (response.status === 200){
+        markers = parsedResponse;
+        console.log(markers);
+      } else {
+        console.log("--- Failed to fetch detailed note list ---");
+      }
+
+    } catch(err) {
+      console.log('--- !!! fetchNotes() ERROR !!! ---');
+      console.log(err);
+    }
+  }
+
   const fetchMap = async () => {
     if (key === '') {
       try {
@@ -97,6 +119,7 @@ const Map = React.memo((props: any) => {
       attachMapListeners();
     }
     loadMapAsync();
+    fetchNotes();
   });
 
   return (
